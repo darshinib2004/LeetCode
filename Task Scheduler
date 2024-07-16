@@ -1,0 +1,9 @@
+class Solution:
+def leastInterval(self, tasks: List[str], n: int) -> int:
+task_count = collections.Counter(tasks)
+max_count = max(task_count.values())
+num_max = sum(1 for count in task_count.values() if count == max_count)
+# Calculate the minimum time required
+result = (max_count - 1) * (n + 1) + num_max
+# If the result is less than the length of tasks, return the length of tasks
+return max(result, len(tasks))
