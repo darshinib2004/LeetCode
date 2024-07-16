@@ -1,0 +1,22 @@
+from typing import List
+class Solution:
+def findTargetSumWays(self, nums: List[int], target: int) -> int:
+total_sum = sum(nums)
+# If total sum is less than target or their difference is odd, no valid assignment
+if total_sum < target or (total_sum - target) % 2 != 0:
+return 0
+pos_sum = (total_sum + target) // 2
+# Initialize dp array with zeros
+dp = [0] * (pos_sum + 1)
+dp[0] = 1 # There is one way to have a sum of 0 (using an empty subset)
+# Fill dp array
+for num in nums:
+for j in range(pos_sum, num - 1, -1):
+dp[j] += dp[j - num]
+return dp[pos_sum]
+# Example usage:
+nums = [1, 1, 1, 1, 1]
+target = 3
+sol = Solution()
+print(sol.findTargetSumWays(nums, target)) # Output: 5 (5 ways to assign symbols: [1, 1, -1, 1, -
+1], [1, -1, 1, 1, -1], etc.)
